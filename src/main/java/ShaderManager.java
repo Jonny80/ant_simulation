@@ -8,7 +8,7 @@ public class ShaderManager extends ShaderProgram{
     private int location_viewMatrix;
 
     public ShaderManager() {
-        super("/home/jonny/IdeaProjects/CGVI2/src/main/resources/shaders/vertex.vs","/home/jonny/IdeaProjects/CGVI2/src/main/resources/shaders/fragment.fs");
+        super("vertex.vs","fragment.fs");
     }
 
     @Override
