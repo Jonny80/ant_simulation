@@ -3,9 +3,9 @@ import org.lwjgl.util.vector.Matrix4f;
 
 public class Renderer {
 
-    private static final float FOV = 70;
+    private static final float FOV = 80;
     private static final float NEAR_PLANE = 0.1f;
-    private static final float FAR_PLANE = 100000;
+    private static final float FAR_PLANE = 1000;
     private Matrix4f projectionMatrix;
 
     public Renderer(ShaderManager shader){
@@ -17,7 +17,7 @@ public class Renderer {
     public void prepare(){
         GL11.glEnable(GL11.GL_DEPTH_TEST);
         GL11.glClear(GL11.GL_COLOR_BUFFER_BIT|GL11.GL_DEPTH_BUFFER_BIT);
-        GL11.glClearColor(0.239f, 0.139f, 0.56f, 1);
+        GL11.glClearColor(1.39f, 0.69f, 0.45f, 0);
     }
 
     public void render(Entity entity,ShaderManager shader){
