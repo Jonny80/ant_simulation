@@ -11,6 +11,7 @@ import org.newdawn.slick.opengl.TextureLoader;
 import java.io.*;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,11 +47,15 @@ public class Loader {
         GL30.glBindVertexArray(vaoID);
         return vaoID;
     }
+    public InputStream loadFile(String filename){
+        InputStream inputStream = this.getClass().getResourceAsStream("textures/" + filename);
+        return inputStream;
+    }
 
     public int loadTexture(String fileName) {
         Texture texture = null;
         try {
-            texture = TextureLoader.getTexture("PNG", new FileInputStream(fileName));
+            texture = TextureLoader.getTexture("PNG", this.loadFile(fileName));
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println("loading Texture failed");
@@ -99,13 +104,12 @@ public class Loader {
 
     // TODO improve loader from episode 16
     public static Model loadObjModel(String fileName, Loader loader) {
-
-        FileReader fr = null;
+        Reader fr = null;
         try {
+            fr = new InputStreamReader(Class.forName(Utils.class.getName()).getResourceAsStream("objects/" + fileName));
+        }catch (ClassNotFoundException e){
+            throw new RuntimeException(e);
 
-                fr = new FileReader(new File(fileName));
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
         }
 
         BufferedReader reader = new BufferedReader(fr);

@@ -6,8 +6,6 @@ public class Camera {
     private Vector3f position = new Vector3f(0,0,10000);
     private float pitch;
     private float yaw;
-    private float roll;
-
     private float zoom = 25;
 
     public Camera(){}
@@ -45,9 +43,6 @@ public class Camera {
         return yaw;
     }
 
-    public float getRoll() {
-        return roll;
-    }
 
 
 

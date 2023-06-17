@@ -84,14 +84,14 @@ public class Simulation {
         Loader loader =  new Loader();
         Renderer renderer = new Renderer(shader);
 
-        ModelTexture hiveTexture = new ModelTexture(loader.loadTexture("/home/jonny/IdeaProjects/CGVI2/src/main/resources/textures/ground.png"));
+        ModelTexture hiveTexture = new ModelTexture(loader.loadTexture("/ground.png"));
         Model hiveModel = loader.loadToVAO(vertices,textureCoords,indices);
         TexturedModel texturedHive = new TexturedModel(hiveModel,hiveTexture);
-       Entity hiveEntity = new Entity(texturedHive,new Vector3f((float) (Math.random() * 10000 - 5000), (float) (Math.random() * 10000 - 5000), 0),
-                0,0,0,100);
+        Entity hiveEntity = new Entity(texturedHive,new Vector3f((float) (Math.random() * 10000 - 5000), (float) (Math.random() * 10000 - 5000), 0),
+                0,0,0,200);
 
-        ModelTexture texture = new ModelTexture(loader.loadTexture("/home/jonny/IdeaProjects/CGVI2/src/main/resources/textures/black.png"));
-        Model model = Loader.loadObjModel("/home/jonny/IdeaProjects/CGVI2/src/main/resources/objects/ant.obj", loader);
+        ModelTexture texture = new ModelTexture(loader.loadTexture("/black.png"));
+        Model model = Loader.loadObjModel("ant.obj", loader);
         TexturedModel texturedModel = new TexturedModel(model,texture);
 
 
@@ -99,13 +99,12 @@ public class Simulation {
 
         for (int i = 0; i < 500; i++) {
             hive.add(new Entity(texturedModel,new Vector3f((float) (Math.random() * 10000 - 5000), (float) (Math.random() * 10000 - 5000), 0),
-                    0,0,0,10));
+                    0,0,0,50));
         }
         Camera camera = new Camera();
 
         while (!Display.isCloseRequested()){
             // here movement
-           hiveEntity.increaseRotation(1,1,0);
 
             // has to be called every frame
             camera.move();
