@@ -7,7 +7,11 @@ public final class Constants {
         FOOD,
         HIVE,
         NONE,
-        TRACE
+    }
+    public enum AntState {
+        SEEKING,
+        RETURNING,
+        COLLECTING
     }
 
 

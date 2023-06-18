@@ -43,13 +43,23 @@ public class Entity {
     public void setPosition(Vector3f position) {
         this.position = position;
     }
+    public void setPosX(float x){
+        this.position.x = x;
+    }
+    public void setPosY(float y){
+        this.position.y = y;
+    }
+
+    public void setPosZ(float z){
+        this.position.z = z;
+    }
 
     public float getRotX() {
         return rotX;
     }
 
     public void setRotX(float rotX) {
-        this.rotX = rotX;
+        this.rotX = rotX%360;
     }
 
     public float getRotY() {
@@ -57,7 +67,7 @@ public class Entity {
     }
 
     public void setRotY(float rotY) {
-        this.rotY = rotY;
+        this.rotY = rotY%360;
     }
 
     public float getRotZ() {
@@ -65,7 +75,7 @@ public class Entity {
     }
 
     public void setRotZ(float rotZ) {
-        this.rotZ = rotZ;
+        this.rotZ = rotZ%360;
     }
 
     public float getScale() {
@@ -75,4 +85,5 @@ public class Entity {
     public void setScale(float scale) {
         this.scale = scale;
     }
+
 }

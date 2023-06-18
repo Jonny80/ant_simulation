@@ -1,13 +1,19 @@
 import org.lwjgl.util.vector.Vector3f;
+import org.newdawn.slick.opengl.Texture;
 
 import java.util.ArrayList;
 import java.util.Random;
 
 public class ModelFactory {
+    private static final Random randomGenerator = new Random();
 
+    private ModelTexture blackTexture;
+    private ModelTexture greenTexture;
     private Loader loader;
     public ModelFactory(Loader loader){
         this.loader = loader;
+        this.blackTexture = new ModelTexture(this.loader.loadTexture("/black.png"));
+        this.greenTexture = new ModelTexture(this.loader.loadTexture("/green.png"));
     }
 
     private float randomPosition(int range){
@@ -24,18 +30,38 @@ public class ModelFactory {
         return position + dP;
     }
 
-    public ArrayList<Entity> createAnts(float rotX,float rotY, float rotZ, float scale,int number){
+    public ArrayList<Ant> createAnts(float rotX,float rotY, float rotZ, float scale,int number){
+        Random random= new Random();
 
         ModelTexture texture = new ModelTexture(loader.loadTexture("/black.png"));
         Model model = Loader.loadObjModel("ant.obj",loader);
         TexturedModel texturedModel = new TexturedModel(model,texture);
 
-        ArrayList<Entity> ants = new ArrayList<>();
+        ArrayList<Ant> ants = new ArrayList<>();
         for (int i = 0; i < number; i++) {
-            Entity ant = new Entity(texturedModel,new Vector3f((this.randomPosition(1600)),(this.randomPosition(1000)), 0),rotX,rotY,rotZ,scale);
+            Ant ant = new Ant(texturedModel,new Vector3f((this.randomPosition(3000)),(this.randomPosition(1500)), 0),
+                    new Vector3f(rotX,rotY, rotZ ),scale,1);
            ants.add(ant);
         }
         return ants;
+    }
+    public ArrayList<Ant> createAnts(float posx,float posy,float rotX,float rotY, float rotZ, float scale,int number){
+        Model model = Loader.loadObjModel("ant.obj",loader);
+        TexturedModel texturedModel = new TexturedModel(model,this.blackTexture);
+
+        ArrayList<Ant> ants = new ArrayList<>();
+        for (int i = 0; i < number; i++) {
+            Ant ant = new Ant(texturedModel,new Vector3f(posx,posy, 0),
+                    new Vector3f(rotX,rotY,randomGenerator.nextInt(360)),scale,2);
+            ants.add(ant);
+        }
+        return ants;
+    }
+
+    public void changeTextureOfAnt(Ant ant){
+        TexturedModel texturedModel = new TexturedModel(ant.getModel().getRawModel(), this.greenTexture);
+        ant.setModel(texturedModel);
+        System.out.println("Texture changed");
     }
 
     public Entity createHive(){
@@ -55,9 +81,8 @@ public class ModelFactory {
     }
 
     public ArrayList<Entity> createFoodSource(Vector3f position,int number,int scale,int radius){
-        ModelTexture hiveTexture = new ModelTexture(loader.loadTexture("/green.png"));
-        Model hiveModel = loader.loadToVAO(vertices,textureCoords,indices);
-        TexturedModel texturedFood = new TexturedModel(hiveModel,hiveTexture);
+        Model foodModel = loader.loadToVAO(vertices,textureCoords,indices);
+        TexturedModel texturedFood = new TexturedModel(foodModel,this.greenTexture);
 
         ArrayList<Entity> foodSource = new ArrayList<>();
 
@@ -70,12 +95,11 @@ public class ModelFactory {
         }
         return foodSource;
     }
-    public Entity createFood(){
-        ModelTexture hiveTexture = new ModelTexture(loader.loadTexture("/green.png"));
-        Model hiveModel = loader.loadToVAO(vertices,textureCoords,indices);
-        TexturedModel texturedHive = new TexturedModel(hiveModel,hiveTexture);
-        return new Entity(texturedHive,new Vector3f((float) (Math.random() * 10000 - 5000), (float) (Math.random() * 10000 - 5000), 0),
-                0,0,0,200);
+    public Entity createFood(Vector3f position,int scale){
+        Model foodModel = loader.loadToVAO(vertices,textureCoords,indices);
+        TexturedModel texturedFood = new TexturedModel(foodModel,this.greenTexture);
+       return new Entity(texturedFood,position,0,0,0,scale);
+
     }
     float[] vertices = {
             -0.5f,0.5f,-0.5f,
