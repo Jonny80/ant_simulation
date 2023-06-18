@@ -102,7 +102,6 @@ public class Loader {
         return buffer;
     }
 
-    // TODO improve loader from episode 16
     public static Model loadObjModel(String fileName, Loader loader) {
         Reader fr = null;
         try {

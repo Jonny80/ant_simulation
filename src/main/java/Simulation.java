@@ -14,7 +14,7 @@ public class Simulation {
         ModelFactory factory = new ModelFactory(loader);
         Map map = new Map(1600,1400);
 
-        List<Ant> ants = factory.createAnts(0,0,0,0,0,10,20);
+        List<Ant> ants = factory.createAnts(0,0,0,0,0,10,60);
         Entity hive = factory.createHive(new Vector3f((float) 0, (float) 0, 0),0,0,0,100);
         map.setEntity(0,0,100, Constants.MapType.HIVE);
 
@@ -24,16 +24,22 @@ public class Simulation {
         map.setEntity(400,-400,50, Constants.MapType.FOOD);
         List<Entity> foodSource2 = factory.createFoodSource(new Vector3f((float) -200, (float) -400, 0),60,5,50);
         map.setEntity(-200,-400,50, Constants.MapType.FOOD);
-        List<Entity> foodSource3 = factory.createFoodSource(new Vector3f((float) 200, (float) -400, 0),60,5,50);
-        map.setEntity(200,-400,50, Constants.MapType.FOOD);
+        List<Entity> foodSource3 = factory.createFoodSource(new Vector3f((float) 400, (float) 400, 0),60,5,50);
+        map.setEntity(400,400,50, Constants.MapType.FOOD);
         List<Entity> foodSource4 = factory.createFoodSource(new Vector3f((float) -600, (float) 400, 0),60,5,50);
         map.setEntity(-600,400,50, Constants.MapType.FOOD);
+        List<Entity> foodSource5 = factory.createFoodSource(new Vector3f((float) -800, (float) 600, 0),60,5,50);
+        map.setEntity(-700,500,50, Constants.MapType.FOOD);
+        List<Entity> foodSource6 = factory.createFoodSource(new Vector3f((float) -600, (float) -600, 0),60,5,50);
+        map.setEntity(-600,-600,50, Constants.MapType.FOOD);
 
 
         foodSources.add(foodSource);
         foodSources.add(foodSource2);
         foodSources.add(foodSource3);
         foodSources.add(foodSource4);
+        foodSources.add(foodSource5);
+        foodSources.add(foodSource6);
 
         Camera camera = new Camera();
 
@@ -68,7 +74,6 @@ public class Simulation {
             }
             for (Ant ant : ants) {
                 if (ant.getState() == Constants.AntState.RETURNING){
-                    System.out.println("rendering food");
                     renderer.render(ant.getFood(),shader);
                 }
             }

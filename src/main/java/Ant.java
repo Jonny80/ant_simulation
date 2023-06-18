@@ -4,7 +4,6 @@ import java.util.Random;
 
 
 public class Ant extends Entity{
-    private static final Random randomGenerator = new Random();
     private final int directionRadius = 45;
     private final Vector3f hivePos = new Vector3f(0,0,0);
     private Vector3f foodSource;
@@ -90,6 +89,10 @@ public class Ant extends Entity{
                 return;
             }
             if (type == Constants.MapType.HIVE){
+                if (foodSource == null){
+                    System.out.println("Foudsource not found");
+                    this.changeState(Constants.AntState.SEEKING);
+                }
                 moveToPosition(foodSource);
                 return;
             }
@@ -176,9 +179,9 @@ public class Ant extends Entity{
         // double deltaTurnRight = getDeltaTurnByPos(hivePos,facingVecRight);
 
         if (Double.isNaN(deltaTurnLeft) || deltaTurnLeft < 1 ){
-            setRotZ((float) (deltaTurn/40 + getRotZ()));
+            setRotZ((float) (deltaTurn/20 + getRotZ()));
         }else {
-            setRotZ((float)(getRotZ() - deltaTurn/40));
+            setRotZ((float)(getRotZ() - deltaTurn/20));
         }
         moveForward();
     }
