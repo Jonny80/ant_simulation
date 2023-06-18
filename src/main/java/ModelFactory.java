@@ -74,7 +74,7 @@ public class ModelFactory {
     public Entity createHive(Vector3f position,float rotX,
                               float rotY, float rotZ, float scale){
         ModelTexture hiveTexture = new ModelTexture(this.loader.loadTexture("/ground.png"));
-        Model hiveModel = this.loader.loadToVAO(vertices,textureCoords,indices);
+        Model hiveModel = Loader.loadObjModel("hive.obj",loader);
         TexturedModel texturedHive = new TexturedModel(hiveModel,hiveTexture);
         return new Entity(texturedHive,position,
                 rotX,rotY,rotZ,scale);

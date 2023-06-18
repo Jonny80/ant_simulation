@@ -15,7 +15,7 @@ public class Simulation {
         Map map = new Map(1600,1400);
 
         List<Ant> ants = factory.createAnts(0,0,0,0,0,10,60);
-        Entity hive = factory.createHive(new Vector3f((float) 0, (float) 0, 0),0,0,0,100);
+        Entity hive = factory.createHive(new Vector3f((float) 0, (float) 0, -10),90,0,0,100);
         map.setEntity(0,0,100, Constants.MapType.HIVE);
 
         List<List<Entity>> foodSources = new ArrayList<>();
